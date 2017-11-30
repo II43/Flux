@@ -3,6 +3,8 @@ Matlab game of energy flux battle between critters
 
 The goal is to create a critter function that distributes the energy from itself to its close neighborhood to capture empty site and defeat the enemies.
 
+![screenshot](flux_capture.gif)
+
 ## Vocabulary
    - Critter: 	Player function that distributes the energy
    - Site:		Unit of area
