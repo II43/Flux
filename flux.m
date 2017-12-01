@@ -41,9 +41,28 @@ hFigure = plotcmat(E,T,S,conf);
 
 [E,T,S] = flux_init_battlefields(E,T,S,conf);
 round = 0;
+
+% Number of rounds to capture
+nFrames = 200;
+
 while isvalid(hFigure), 
    round = round + 1;
    [E,T,S] = flux_round(E,T,S,conf);
    [E,T,S] = flux_farm(E,T,S,conf);
    plotcmat(E,T,S,conf,'Update');
+   
+   % Capture frames to create GIF
+   if round <= nFrames,
+      f = getframe(gcf);
+      if ~exist('im','var'),
+          [im,map] = rgb2ind(f.cdata,256,'nodither');
+          im(1,1,1,nFrames) = 0;
+      end
+      im(:,:,1,round) = rgb2ind(f.cdata,map,'nodither');
+   else
+       % Create a GIF
+       imwrite(im,map,'flux_capture.gif','DelayTime',0,'LoopCount',inf)
+   end
 end
+
+
